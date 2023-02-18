@@ -1,0 +1,14 @@
+{% extends 'app_main/add_invoice.html' %}
+
+{% block add_invoice %}
+
+<form class="p-3" action="{% url 'create_invoice' pk=invoice_sender.id %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button class="mt-3 d-block w-100 btn btn-sm btn-success" type="submit">Qarz so'rash</button>
+</form>
+
+
+{% endblock add_invoice %}
+
+

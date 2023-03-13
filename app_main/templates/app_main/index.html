@@ -56,11 +56,18 @@
             </div>
         </div>
         <div class="row mt-4">
+            {# {% if request.user.profile.sender_invoices.all %}  #}
             <div class="col-lg-7 mb-lg-0 mb-4">
                 <div class="card ">
                     <div class="card-header pb-0 p-3">
                         <div class="d-flex justify-content-between">
-                            <h6 class="mb-2">Qarzlar ro'yhati</h6>
+                            <h6 class="mb-2">
+                                {% if request.user.profile.sender_invoices.all.count != 0 %}
+                                Qarzlar ro'yhati
+                                {% else %}
+                                Qarzlar mavjud emas
+                                {% endif %}
+                            </h6>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -112,35 +119,36 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
-                <div class="card card-carousel h-100 w-100">
-                    <div id="carouselExampleCaptions" class="carousel slide h-100 w-100" data-bs-ride="carousel">
-                        <div class="carousel-inner border-radius-lg h-100 w-100">
-                            {% for ad in ads %}
-                            <div class="carousel-item h-100 w-100 active" style="background-image: url('{{ ad.photo.url }}');
-      background-size: cover;">
-                                <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">
-                                    <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
-                                        <i class="ni ni-camera-compact text-dark opacity-10"></i>
-                                    </div>
-                                    <h5 class="text-white mb-1">{{ ad.title|linebreaksbr }}</h5>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                        <button class="carousel-control-prev w-5 me-3" type="button"
-                                data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next w-5 me-3" type="button"
-                                data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+            {# {% endif %} #}
+<!--            <div class="col">-->
+<!--                <div class="card card-carousel h-100 w-100">-->
+<!--                    <div id="carouselExampleCaptions" class="carousel slide h-100 w-100" data-bs-ride="carousel">-->
+<!--                        <div class="carousel-inner border-radius-lg h-100 w-100">-->
+<!--                            {% for ad in ads %}-->
+<!--                            <div class="carousel-item h-100 w-100 active" style="background-image: url('{{ ad.photo.url }}');-->
+<!--      background-size: cover;">-->
+<!--                                <div class="carousel-caption d-none d-md-block bottom-0 text-start start-0 ms-5">-->
+<!--                                    <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">-->
+<!--                                        <i class="ni ni-camera-compact text-dark opacity-10"></i>-->
+<!--                                    </div>-->
+<!--                                    <h5 class="text-white mb-1">{{ ad.title|linebreaksbr }}</h5>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            {% endfor %}-->
+<!--                        </div>-->
+<!--                        <button class="carousel-control-prev w-5 me-3" type="button"-->
+<!--                                data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">-->
+<!--                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--                            <span class="visually-hidden">Previous</span>-->
+<!--                        </button>-->
+<!--                        <button class="carousel-control-next w-5 me-3" type="button"-->
+<!--                                data-bs-target="#carouselExampleCaptions" data-bs-slide="next">-->
+<!--                            <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--                            <span class="visually-hidden">Next</span>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
         </div>
     </div>
 </main>

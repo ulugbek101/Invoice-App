@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+{% include 'components/_nav.html' %}
+<main class="main-content position-relative border-radius-lg ">
+    <!-- Navbar -->
+    {% include 'components/_custom_nav.html' %}
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-12">
+                <div class="card mb-4">
+                    <div class="card-header pb-0">
+                        <h6 class="text-center">
+                            {% if invoice.sender.fullname %}
+                            {{ invoice.sender.fullname }}
+                            {% else %}
+                            {{ invoice.sender.username }}
+                            {% endif %}
+                            ga muddatli to'lovni amalga oshirish</h6>
+                    </div>
+                    <div class="card-body px-2">
+                        <div class="table-responsive p-0">
+                            <p>Qarz sababi: {{ invoice.reason|linebreaksbr }}</p>
+                            <p>Qarz miqdori: {{ invoice.amount|intcomma }}</p>
+                            <form action="{% url 'pre_pay' pk=invoice.id %}" method="post">
+                                {% csrf_token %}
+                                <input class="form-control"
+                                       type="number"
+                                       name="pre_pay_amount"
+                                       placeholder="Summani yozing ..."
+                                       min="0"
+                                       max="{{ invoice.amount }}"
+                                       value="10000"
+                                       step="5000"
+                                >
+                                <button class="btn btn-primary btn-sm mt-2 w-100 d-block"
+                                        type="submit">To'lash</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        .bg-primary {
+            background-color: #1C1E3C !important;
+        }
+    </style>
+</main>
+{% endblock content %}

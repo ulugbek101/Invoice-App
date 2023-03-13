@@ -1,11 +1,31 @@
 from django.shortcuts import render, redirect
-from django.db.models import Q
+from django.db.models import Q, Sum
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
 
 from . import forms
+from . import models
 from app_users.models import Profile
+
+
+@login_required(login_url='login')
+def pre_pay(request, pk):
+    invoice_owner = request.user.profile
+    invoice = invoice_owner.owner_invoices.get(id=pk)
+
+    if request.method == 'POST':
+        amount = int(request.POST.get('pre_pay_amount'))
+        invoice.amount = invoice.amount - amount
+        invoice.save()
+        messages.success(request, f'{amount} miqdordagi summa asosiy qarzdan ayrildi')
+        return redirect('invoices')
+
+    context = {
+        'invoice': invoice,
+    }
+    return render(request, 'app_main/pre_pay.html', context)
 
 
 @login_required(login_url='signin')
@@ -15,8 +35,20 @@ def index_view(request):
         'form_name': 'profile',
         'form_value': '',
         'form_placeholder': 'Username, Ism, Familiya yoki tel. raqam',
+        'ads': models.News.objects.all(),
+        'total_users_count': User.objects.all().count(),
+        'total_invoices': models.Invoice.objects.aggregate(total=Sum('amount')),
     }
     return render(request, 'app_main/index.html', context)
+
+
+@login_required(login_url='signin')
+def confirm_invoice(request, pk):
+    profile = request.user.profile
+    invoice = profile.sender_invoices.get(id=pk)
+    invoice.is_confirmed = True
+    invoice.save()
+    return redirect('home')
 
 
 @login_required(login_url='signin')
@@ -53,12 +85,12 @@ def add_invoice(request):
         'form_name': 'profile',
         'form_value': profile_query,
         'form_placeholder': 'Username, Ism, Familiya yoki tel. raqam',
-        'page': 'Qarz olis/Qarz berish',
+        'page': 'Qarz olish/Qarz berish',
     }
     return render(request, 'app_main/add_invoice.html', context)
 
 
-@login_required(login_url='login')
+@login_required(login_url='signin')
 def create_invoice(request, pk):
     profile_query = ''
     user_profiles = []
@@ -91,7 +123,7 @@ def create_invoice(request, pk):
     context = {
         'invoice_sender': invoice_sender,
         'form': form,
-        'page': 'Qarz olis/Qarz berish',
+        'page': 'Qarz olish/Qarz berish',
         'profiles': user_profiles,
         'form_name': 'profile',
         'form_value': profile_query,
@@ -103,12 +135,8 @@ def create_invoice(request, pk):
 @login_required(login_url='signin')
 def invoice_request_approve(request, pk):
     profile = request.user.profile
-    invoice = profile.sender_invoices.get(id=pk)
+    invoice = profile.owner_invoices.get(id=pk)
     invoice.is_confirmed = True
     invoice.save()
     messages.success(request, 'Qarz berildi')
     return redirect('add_invoices')
-
-
-
-

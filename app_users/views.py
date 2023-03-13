@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.models import User
 
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -29,6 +30,16 @@ def signup(request):
     if request.method == 'POST':
         form = forms.UserRegisterForm(request.POST)
         if form.is_valid():
+            try:
+                user = User.objects.get(
+                    first_name=request.POST.get('first_name'),
+                    last_name=request.POST.get('last_name')
+                )
+                messages.error(request, 'Bunday shaxs platformada allaqachon mavjud !')
+                return redirect('signup')
+            except:
+                user = None
+
             form.save()
             messages.success(request, 'Account has been successfully created')
             return redirect('signin')

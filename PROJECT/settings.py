@@ -15,7 +15,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-y4@j^lx6g#&wo!th&=g#^&$a=7yyp3*7*56i3u@wptee53ttf#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.str('DEBUG', True)
+# DEBUG = env.str('DEBUG', True)
+
+DEBUG = True
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'qarz-bor.up.railway.app']
 CSRF_TRUSTED_ORIGINS = [
@@ -39,8 +41,8 @@ INSTALLED_APPS = [
     'whitenoise',
 
     # for user uploaded images, ...
-    'cloudinary_storage',
-    'cloudinary',
+    # 'cloudinary_storage',
+    # 'cloudinary',
     
     'app_users.apps.AppUsersConfig',
     'app_main.apps.AppMainConfig',
@@ -80,23 +82,23 @@ WSGI_APPLICATION = 'PROJECT.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env.str('PGDATABASE'),
-        'USER': env.str('PGUSER'),
-        'PASSWORD': env.str('PGPASSWORD'),
-        'HOST': env.str('PGHOST'),
-        'PORT': env.str('PGPORT'),
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': env.str('PGDATABASE'),
+#         'USER': env.str('PGUSER'),
+#         'PASSWORD': env.str('PGPASSWORD'),
+#         'HOST': env.str('PGHOST'),
+#         'PORT': env.str('PGPORT'),
+#     }
+# }
 
 
 # Password validation
@@ -142,14 +144,14 @@ MEDIA_ROOT = BASE_DIR / 'invoice-media'
 STATICFILES_DIRS = [
     BASE_DIR / 'staticfiles'
 ]
+# CLOUDINARY_STORAGE = {
+#     'CLOUD_NAME': env.str('CLOUD_NAME'),
+#     'API_KEY': env.str('CLOUD_API_KEY'),
+#     'API_SECRET': env.str('CLOUD_API_SECRET'),
+# }
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': env.str('CLOUD_NAME'),
-    'API_KEY': env.str('CLOUD_API_KEY'),
-    'API_SECRET': env.str('CLOUD_API_SECRET'),
-}
 
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 

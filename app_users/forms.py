@@ -10,23 +10,25 @@ from .models import Profile
 
 class UserRegisterForm(UserCreationForm):
     password1 = forms.CharField(
-        label=_("*Password"),
+        label=_("*Parol"),
         strip=False,
         widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
         help_text=password_validation.password_validators_help_text_html(),
     )
     password2 = forms.CharField(
-        label=_("*Password confirmation"),
+        label=_("*Parolni tasdiqlang"),
         widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
         strip=False,
-        help_text=_("Enter the same password as before, for verification."),
+        help_text=_("Tekshirish uchun avvalgidek parolni kiriting."),
     )
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2']
+        fields = ['username', 'first_name', 'last_name', 'password1', 'password2']
         labels = {
-            'username': '*Username',
+            'username': '*Nickname',
+            'first_name': 'Ismingiz',
+            'last_name': 'Familiya',
         }
 
     def __init__(self, *args, **kwargs):

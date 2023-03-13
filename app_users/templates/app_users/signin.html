@@ -10,8 +10,8 @@
             <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
               <div class="card card-plain">
                 <div class="card-header pb-0 text-start">
-                  <h4 class="font-weight-bolder">Sign In</h4>
-                  <p class="mb-0">Enter your email and password to sign in</p>
+                  <h4 class="font-weight-bolder">Kirish</h4>
+                  <p class="mb-0">Username va Parolni kiriting</p>
                 </div>
                 <div class="card-body">
                   <form action="{% url 'signin' %}" method="post">
@@ -21,27 +21,21 @@
                       <input class="form-control" type="text" name="username" placeholder="johndoe" id="username">
                     </div>
                     <div class="d-flex flex-column">
-                        <label for="password">Password: </label>
+                        <label for="password">Parol: </label>
                         <input class="form-control" type="password" name="password" placeholder="********" id="password">
                     </div>
-                    <small class="mt-2">Don't have an account yet ? <a class="text-decoration-none" href="{% url 'signup' %}">Sign up</a></small>
-                    <button class="btn btn-success mt-3" type="submit">Sign up</button>
+                    <small class="mt-2">Akkaunt yo'q bo'lsa registratsiya qiling! <strong><a style="color: blue;" href="{% url 'signup' %}">Registratsiya</a></strong></small>
+                    <button class="btn btn-success mt-3 w-100 h-100" type="submit">Kirish</button>
                   </form>
-                </div>
-                <div class="card-footer text-center pt-0 px-lg-2 px-1">
-                  <p class="mb-4 text-sm mx-auto">
-                    Don't have an account?
-                    <a href="javascript:;" class="text-primary text-gradient font-weight-bold">Sign up</a>
-                  </p>
                 </div>
               </div>
             </div>
             <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
+              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('{% static 'images/qarz-berdi.jpg' %}');
           background-size: cover;">
                 <span class="mask bg-gradient-primary opacity-6"></span>
-                <h4 class="mt-5 text-white font-weight-bolder position-relative">"Attention is the new currency"</h4>
-                <p class="text-white position-relative">The more effortless the writing looks, the more effort the writer actually put into the process.</p>
+                <h4 class="mt-5 text-white font-weight-bolder position-relative">Qarzbor.uz saytiga kirish</h4>
+                <p class="text-white position-relative">Tizimda siz qarz oldi berdi shartnomalarni amalga oshirasiz. </p>
               </div>
             </div>
           </div>
@@ -49,5 +43,13 @@
       </div>
     </section>
   </main>
+
+<style>
+
+.bg-gradient-primary{
+    background-image: linear-gradient(310deg, #5e72e4 0%, #000000 100%);
+}
+</style>
+
 
 {% endblock content %}
